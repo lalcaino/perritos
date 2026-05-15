@@ -9,6 +9,7 @@ on:
 jobs:
   build-push-deploy-frontend:
     runs-on: ubuntu-latest
+    environment: aws
 
     steps:
     - name: Checkout código
