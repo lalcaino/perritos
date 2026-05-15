@@ -12,6 +12,7 @@ permissions:
 jobs:
   build-push-deploy-backend:
     runs-on: ubuntu-latest
+    environment: aws
 
     steps:
     - name: Checkout código
