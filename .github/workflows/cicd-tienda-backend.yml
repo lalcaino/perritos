@@ -17,6 +17,13 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v3
 
+    - name: Debug secrets presentes
+      run: |
+        echo "ACCESS_KEY presente: ${{ secrets.AWS_ACCESS_KEY != '' }}"
+        echo "SECRET_KEY presente: ${{ secrets.AWS_SECRET_ACCESS_KEY != '' }}"
+        echo "SESSION_TOKEN presente: ${{ secrets.AWS_SESSION_TOKEN != '' }}"
+        echo "REGION presente: ${{ secrets.AWS_REGION != '' }}"
+      
     - name: Configurar credenciales AWS
       uses: aws-actions/configure-aws-credentials@v4
       with:
