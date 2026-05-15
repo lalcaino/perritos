@@ -47,17 +47,3 @@ jobs:
             "docker run -d --name tienda-backend -p 3001:3001 ${{ secrets.ECR_REPO_URL_BACKEND }}:latest"
           ]}' \
           --output text
-
-
-    - name: Deploy to EC2 via SSM
-      run: |
-        aws ssm send-command \
-          --instance-ids "${{ secrets.INSTANCE_ID_BACKEND }}" \
-          --document-name "AWS-RunShellScript" \
-          --parameters 'commands=[
-            "aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REGISTRY }}/mi-proyecto-backend:latest",
-            "docker stop backend-container || true",
-            "docker rm backend-container || true",
-            "docker run -d --name backend-container -p 3001:3001 -e DB_HOST=${{ secrets.DB_HOST_IP }} ${{ secrets.ECR_REGISTRY }}/mi-proyecto-backend:latest"
-          ]'
